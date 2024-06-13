@@ -5,6 +5,7 @@ use password_generator::DefaultValue::{DefaultGenerateTotal, DefaultLength, Zero
 const PROGRAM: &str = "pg";
 const VERSION: &str = "0.1.0";
 const USAGE: &str = "Usage: password-generator [options]";
+const UNKNOWN: &str = "Unknown argument\n";
 
 pub fn menu() ->Options  {
     let mut opts = Options::new();
@@ -22,7 +23,13 @@ pub fn menu() ->Options  {
 pub fn read_args() -> Option<Argument> {
     let mut argument = Argument::default();
     let opts = menu();
-    let matches = opts.parse(std::env::args().skip(1)).unwrap();
+    let matches = match opts.parse(std::env::args().skip(1)) {
+        Ok(success) => success,
+        Err(_) => {
+            println!("{} {} {}",UNKNOWN, PROGRAM,opts.usage(USAGE));
+            std::process::exit(0)
+        }
+    };
     if matches.opt_present("h") {
         println!("{} {}", PROGRAM,opts.usage(USAGE));
         std::process::exit(0);
