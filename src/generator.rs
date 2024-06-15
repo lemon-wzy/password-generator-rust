@@ -2,6 +2,14 @@ use password_generator::DefaultValue::Zero;
 use password_generator::{DIGITS, LOWERCASE_LETTERS, MARKS, UPPERCASE_LETTERS};
 use rand::prelude::{IteratorRandom, SliceRandom};
 
+/// 密码生成
+///
+/// # example
+///
+/// ```
+/// let pass = generator_password(20,5,5,5,5)
+/// println!("{}",pass)
+/// ```
 pub fn generator_password(length: u8, upper: u8, lower: u8, digital: u8, mark: u8) -> String {
     let mut password = String::new();
     if upper.gt(&Zero.as_u8()) {
@@ -65,6 +73,5 @@ pub fn generator_password(length: u8, upper: u8, lower: u8, digital: u8, mark: u
     let mut pass: Vec<char> = Vec::new();
     pass.extend(password.chars());
     pass.shuffle(&mut rand::thread_rng());
-    println!("{}", pass.iter().collect::<String>());
     pass.iter().collect()
 }

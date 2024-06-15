@@ -25,6 +25,8 @@ pub const VERSION: &str = "0.1.0";
 pub const USAGE: &str = "Usage: password-generator [options]";
 pub const UNKNOWN: &str = "Unknown argument\n";
 
+pub const THREADPOOLNUM: usize = 5;
+
 pub struct DefaultArgs {
     pub length: (String, String, String, String),
     pub upper: (String, String, String, String),
