@@ -109,6 +109,17 @@ impl DefaultValue {
     }
 }
 
+pub enum DefaultArgChar {
+    UpperChar(char),
+    LowerChar(char),
+    LengthChar(char),
+    MarkChar(char),
+    DigtalChar(char),
+    TotalChar(char),
+    VersionChar(char),
+    HelpChar(char),
+}
+
 pub struct Argument {
     pub length: u8,
     pub upper: u8,
@@ -136,16 +147,34 @@ impl Argument {
 
     pub fn modify_arg(&mut self, letter: char, value: u8) {
         match letter {
-            'u' => self.upper += value,
-            'o' => self.lower += value,
-            'd' => self.digital += value,
-            'm' => self.mark += value,
-            't' => self.total = value,
-            'l' => {
+            UPPER_ARG => self.upper += value,
+            LOWER_ARG => self.lower += value,
+            DIGITAL_ARG => self.digital += value,
+            MARK_ARG => self.mark += value,
+            TOTAL_ARG => self.total = value,
+            LENGTH_ARG => {
                 if value.ge(&MinLength.as_u8()) {
                     self.length = value
                 } else {
                     self.length = DefaultLength.as_u8();
+                }
+            }
+            _ => {}
+        }
+    }
+
+    pub fn modify(&mut self, char_enum: DefaultArgChar, value: u8) {
+        match char_enum {
+            DefaultArgChar::UpperChar(UPPER_ARG) => self.upper += value,
+            DefaultArgChar::DigtalChar(DIGITAL_ARG) => self.digital += value,
+            DefaultArgChar::LowerChar(LOWER_ARG) => self.lower += value,
+            DefaultArgChar::MarkChar(MARK_ARG) => self.mark += value,
+            DefaultArgChar::TotalChar(TOTAL_ARG) => self.total = value,
+            DefaultArgChar::LengthChar(LENGTH_ARG) => {
+                if value.ge(&MinLength.as_u8()) {
+                    self.length = value
+                } else {
+                    self.length = DefaultLength.as_u8()
                 }
             }
             _ => {}
