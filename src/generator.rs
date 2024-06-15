@@ -75,3 +75,15 @@ pub fn generator_password(length: u8, upper: u8, lower: u8, digital: u8, mark: u
     pass.shuffle(&mut rand::thread_rng());
     pass.iter().collect()
 }
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    #[test]
+    fn generate_pass() {
+        let pass = generator_password(20, 7, 3, 1, 9);
+        println!("this is test generate pass {}", pass)
+    }
+}
