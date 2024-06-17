@@ -1,3 +1,5 @@
+use std::env;
+
 use crate::DefaultValue::{DefaultGenerateTotal, DefaultLength, MinLength, Zero};
 
 pub const UPPERCASE_LETTERS: [char; 26] = [
@@ -20,8 +22,8 @@ pub const TOTAL_ARG: char = 't';
 pub const HELP_ARG: char = 'h';
 pub const VERSION_ARG: char = 'v';
 
-pub const PROGRAM: &str = "pg";
-pub const VERSION: &str = "0.1.0";
+pub const PROGRAM: &str = env!("CARGO_PKG_NAME");
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const USAGE: &str = "Usage: password-generator [options]";
 pub const UNKNOWN: &str = "Unknown argument\n";
 
