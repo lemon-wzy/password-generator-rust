@@ -1,0 +1,5 @@
+[select_chars_pool]
+upper_chars_pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+lower_chars_pool = "abcdefghijklmnopqrstuvwxyz"
+digital_chars_pool = "0123456789"
+mark_chars_pool = "!#$%&()*+,-./:;<=>?@\\[]]^_`{|}~"
