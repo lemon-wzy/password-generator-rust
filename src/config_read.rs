@@ -7,7 +7,7 @@ use rust_embed::Embed;
 #[include = "*.toml"]
 pub struct Assert;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct SelectCharsPool {
     pub upper_chars_pool: String,
     pub lower_chars_pool: String,
@@ -15,18 +15,18 @@ pub struct SelectCharsPool {
     pub mark_chars_pool: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct ConfigRead {
     pub select_chars_pool: SelectCharsPool,
 }
 
 impl Default for ConfigRead {
     fn default() -> Self {
-        let config_e: ConfigRead;
-        if let Some(e_file) = Assert::get("config.toml") {
-            if let Ok(s) = std::str::from_utf8(e_file.data.as_ref()) {
-                config_e = toml::from_str(s).unwrap();
-                return config_e;
+        let config: ConfigRead;
+        if let Some(file) = Assert::get("config.toml") {
+            if let Ok(content) = std::str::from_utf8(file.data.as_ref()) {
+                config = toml::from_str(content).unwrap();
+                config
             } else {
                 panic!("没有找到配置文件");
             }
@@ -46,10 +46,10 @@ impl ConfigRead {
 }
 
 mod test_config {
-    use super::*;
+
     #[test]
     fn test() {
-        let config = ConfigRead::get();
+        let config = crate::config_read::ConfigRead::get();
         println!("{:?}", config)
     }
 }

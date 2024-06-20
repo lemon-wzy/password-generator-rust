@@ -11,6 +11,7 @@ use generator::generator_password_with_config;
 
 fn main() {
     let config = config_read::ConfigRead::get();
+
     if let Some(opts) = console_args::read_args() {
         let thread_pool = ThreadPool::new(THREADPOOLNUM);
         for _ in 0..opts.total {
@@ -18,7 +19,7 @@ fn main() {
                 println!(
                     "{}",
                     generator_password_with_config(
-                        &config,
+                        config,
                         opts.length,
                         opts.upper,
                         opts.lower,
