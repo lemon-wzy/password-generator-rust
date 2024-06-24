@@ -98,55 +98,62 @@ pub fn generator_password_with_config(
 ) -> String {
     let mut password = String::new();
     if upper.gt(&Zero.as_u8()) {
-        password.extend(
+        password.push_str(
             random_string(
-                &config
+                upper as usize,
+                config
                     .select_chars_pool
                     .upper_chars_pool
                     .chars()
-                    .collect::<Vec<char>>(),
-                upper as usize,
+                    .collect::<Vec<char>>()
+                    .as_slice(),
             )
-            .chars(),
+            .chars()
+            .as_str(),
         )
     }
     if lower.gt(&Zero.as_u8()) {
-        password.extend(
+        password.push_str(
             random_string(
-                &config
+                lower as usize,
+                config
                     .select_chars_pool
                     .lower_chars_pool
                     .chars()
-                    .collect::<Vec<char>>(),
-                lower as usize,
+                    .collect::<Vec<char>>()
+                    .as_slice(),
             )
-            .chars(),
+            .chars()
+            .as_str(),
         )
     }
     if digital.gt(&Zero.as_u8()) {
-        password.extend(
+        password.push_str(
             random_string(
-                &config
+                digital as usize,
+                config
                     .select_chars_pool
                     .digital_chars_pool
                     .chars()
-                    .collect::<Vec<char>>(),
-                digital as usize,
+                    .collect::<Vec<char>>()
+                    .as_slice(),
             )
-            .chars(),
+            .as_str(),
         )
     }
     if mark.gt(&Zero.as_u8()) {
-        password.extend(
+        password.push_str(
             random_string(
-                &config
+                mark as usize,
+                config
                     .select_chars_pool
                     .mark_chars_pool
                     .chars()
-                    .collect::<Vec<char>>(),
-                mark as usize,
+                    .collect::<Vec<char>>()
+                    .as_slice(),
             )
-            .chars(),
+            .chars()
+            .as_str(),
         )
     }
     let mut surplus_chars: Vec<char> = Vec::new();
@@ -167,7 +174,11 @@ pub fn generator_password_with_config(
     }
 
     if (surplus_chars.len() as u8).gt(&Zero.as_u8()) {
-        password.extend(random_string(&surplus_chars, length as usize - password.len()).chars());
+        password.push_str(
+            random_string(length as usize - password.len(), surplus_chars.as_slice())
+                .chars()
+                .as_str(),
+        );
     }
 
     if password.len().lt(&(length as usize)) {
@@ -175,7 +186,6 @@ pub fn generator_password_with_config(
             .select_chars_pool
             .upper_chars_pool
             .chars()
-            .into_iter()
             .chain(config.select_chars_pool.lower_chars_pool.chars())
             .chain(config.select_chars_pool.digital_chars_pool.chars())
             .chain(config.select_chars_pool.mark_chars_pool.chars());
@@ -189,12 +199,12 @@ pub fn generator_password_with_config(
     pass.iter().collect()
 }
 
-fn random_string(slelect_chars: &Vec<char>, length: usize) -> String {
-    slelect_chars
+fn random_string(length: usize, select_chars_array: &[char]) -> String {
+    return select_chars_array
         .iter()
         .choose_multiple(&mut rand::thread_rng(), length)
         .into_iter()
-        .collect()
+        .collect::<String>();
 }
 
 #[cfg(test)]
@@ -211,7 +221,7 @@ mod tests {
     #[test]
     fn generate_by_config() {
         let config = ConfigRead::get();
-        let pass = generator_password_with_config(&config, 20, 7, 3, 1, 9);
+        let pass = generator_password_with_config(config, 20, 7, 3, 1, 9);
         println!("this is test generate pass {}", pass)
     }
 }
