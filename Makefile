@@ -3,9 +3,9 @@ platform-linux-x86 = x86_64-unknown-linux-gnu
 platform-apple-x86 = x86_64-apple-darwin
 platform-apple-arm = aarch64-apple-darwin
 
-.PHONY: clean
-clean:
-	cargo clean
+
+.PHONY: all
+all: clean windows macos linux native rename
 
 .PHONY: release
 release:
@@ -22,7 +22,24 @@ release:
 	@echo "release finished"
 	make rename
 
-.PHONY: rename
+clean:
+	cargo clean
+
+
+
+windows:
+	@cargo build --target=$(platform-win-x86) --release
+
+linux:
+	@cargo build --target=$(platform-linux-x86) --release
+
+macos:
+	@cargo build --target=$(platform-apple-x86) --release
+
+native:
+	@cargo build --release
+
+
 rename:
 	@mv target/release/password-generator ./$(platform-apple-arm)-password-generator
 	@mv target/$(platform-apple-x86)/release/password-generator ./$(platform-apple-x86)-password-generator
