@@ -14,6 +14,7 @@ fn main() {
 
     if let Some(opts) = console_args::read_args() {
         let thread_pool = ThreadPool::new(THREADPOOLNUM);
+        println!("password generate success:");
         for _ in 0..opts.total {
             thread_pool.execute(move || {
                 println!(
