@@ -79,6 +79,15 @@ pub fn generator_password(length: u8, upper: u8, lower: u8, digital: u8, mark: u
     pass.iter().collect()
 }
 
+/// 密码生成
+///
+/// # example
+///
+/// ```
+/// let pass = generator_password_with_config(&config,20,5,5,5,5)
+/// println!("{}",pass)
+/// ```
+#[allow(unused)]
 pub fn generator_password_with_config(
     config: &ConfigRead,
     length: u8,
@@ -182,7 +191,7 @@ pub fn generator_password_with_config(
 
 fn random_string(slelect_chars: &Vec<char>, length: usize) -> String {
     slelect_chars
-        .into_iter()
+        .iter()
         .choose_multiple(&mut rand::thread_rng(), length)
         .into_iter()
         .collect()
