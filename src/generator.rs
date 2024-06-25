@@ -199,6 +199,14 @@ pub fn generator_password_with_config(
     pass.iter().collect()
 }
 
+/// 生成随机字符串
+///
+/// # example
+///
+/// ```
+/// let pass = random_string(20,UPPERCASE_LETTERS)
+/// println!("{}",pass)
+/// ```
 fn random_string(length: usize, select_chars_array: &[char]) -> String {
     return select_chars_array
         .iter()

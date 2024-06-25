@@ -29,6 +29,12 @@ pub const UNKNOWN: &str = "Unknown argument\n";
 
 pub const THREADPOOLNUM: usize = 5;
 
+/// 默认参数
+///
+/// # example
+/// ```rust
+/// let default_args = DefaultArgs::default_init();
+/// ```
 pub struct DefaultArgs {
     pub length: (String, String, String, String),
     pub upper: (String, String, String, String),
@@ -41,6 +47,13 @@ pub struct DefaultArgs {
 }
 
 impl DefaultArgs {
+    /// 默认初始化
+    ///
+    /// # example
+    ///
+    /// ```rust
+    ///     let default_args = DefaultArgs::default_init();
+    /// ```
     pub fn default_init() -> Self {
         Self {
             length: (
@@ -134,6 +147,13 @@ pub struct Argument {
 }
 
 impl Argument {
+    /// 生成默认参数
+    ///
+    /// # example
+    ///
+    /// ```
+    /// let args = Argument::default_init();
+    /// ```
     pub fn default_init() -> Self {
         Self {
             length: DefaultLength.as_u8(),
@@ -145,10 +165,26 @@ impl Argument {
         }
     }
 
+    /// 参数校验
+    ///
+    /// # example
+    ///
+    /// ```
+    /// let args = Argument::default_init();
+    /// args.check();
+    /// ```
     pub fn check(&self) -> bool {
         (self.upper + self.lower + self.digital + self.mark).le(&self.length)
     }
 
+    /// 修改参数
+    ///
+    /// # example
+    ///
+    /// ```
+    /// let args = Argument::default_init();
+    /// args.modify(DefaultArgChar::UpperChar(UPPER_ARG), 5);
+    /// ```
     pub fn modify_arg(&mut self, letter: char, value: u8) {
         match letter {
             UPPER_ARG => self.upper += value,
@@ -167,6 +203,14 @@ impl Argument {
         }
     }
 
+    /// 修改参数
+    ///
+    /// # example
+    ///
+    /// ```
+    /// let args = Argument::default_init();
+    /// args.modify(DefaultArgChar::UpperChar(UPPER_ARG), 5);
+    /// ```
     pub fn modify(&mut self, char_enum: DefaultArgChar, value: u8) {
         match char_enum {
             DefaultArgChar::UpperChar(UPPER_ARG) => self.upper += value,
