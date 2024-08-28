@@ -232,4 +232,16 @@ mod tests {
         let pass = generator_password_with_config(config, 20, 7, 3, 1, 9);
         println!("this is test generate pass {}", pass)
     }
+
+    #[test]
+    fn random_string_test() {
+        let select_arry_char: [char; 52] = [
+            'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F', 'g', 'G', 'h', 'H', 'i',
+            'I', 'j', 'J', 'k', 'K', 'l', 'L', 'm', 'M', 'n', 'N', 'o', 'O', 'p', 'P', 'q', 'Q',
+            'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'V', 'w', 'W', 'x', 'X', 'y', 'Y', 'z',
+            'Z',
+        ];
+        let random_str = random_string(16, &select_arry_char);
+        println!("this is random test: {}", random_str);
+    }
 }
