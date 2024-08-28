@@ -24,6 +24,7 @@ release:
 
 clean:
 	cargo clean
+	@rm -rf x86_64-* aarch64-*
 
 
 
