@@ -28,10 +28,10 @@ impl Default for ConfigRead {
                 config = toml::from_str(content).unwrap();
                 config
             } else {
-                panic!("没有找到配置文件");
+                panic!("读取配置文件失败,请检查文件内容!");
             }
         } else {
-            panic!("没有找到配置文件");
+            panic!("没有找到配置文件!");
         }
     }
 }
@@ -46,7 +46,6 @@ impl ConfigRead {
 }
 
 mod test_config {
-
     #[test]
     fn test() {
         let config = crate::config_read::ConfigRead::get();
