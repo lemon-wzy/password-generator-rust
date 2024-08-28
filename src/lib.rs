@@ -33,6 +33,7 @@ pub const THREADPOOLNUM: usize = 5;
 ///
 /// # example
 /// ```rust
+/// use password_generator::DefaultArgs;
 /// let default_args = DefaultArgs::default_init();
 /// ```
 pub struct DefaultArgs {
@@ -52,7 +53,8 @@ impl DefaultArgs {
     /// # example
     ///
     /// ```rust
-    ///     let default_args = DefaultArgs::default_init();
+    ///     use password_generator::DefaultArgs;
+    /// let default_args = DefaultArgs::default_init();
     /// ```
     pub fn default_init() -> Self {
         Self {
@@ -152,6 +154,7 @@ impl Argument {
     /// # example
     ///
     /// ```
+    /// use password_generator::Argument;
     /// let args = Argument::default_init();
     /// ```
     pub fn default_init() -> Self {
@@ -170,6 +173,7 @@ impl Argument {
     /// # example
     ///
     /// ```
+    /// use password_generator::Argument;
     /// let args = Argument::default_init();
     /// args.check();
     /// ```
@@ -182,7 +186,8 @@ impl Argument {
     /// # example
     ///
     /// ```
-    /// let args = Argument::default_init();
+    /// use password_generator::{Argument, DefaultArgChar, UPPER_ARG};
+    /// let mut args = Argument::default_init();
     /// args.modify(DefaultArgChar::UpperChar(UPPER_ARG), 5);
     /// ```
     pub fn modify_arg(&mut self, letter: char, value: u8) {
@@ -208,7 +213,8 @@ impl Argument {
     /// # example
     ///
     /// ```
-    /// let args = Argument::default_init();
+    /// use password_generator::{Argument, DefaultArgChar, UPPER_ARG};
+    /// let mut args = Argument::default_init();
     /// args.modify(DefaultArgChar::UpperChar(UPPER_ARG), 5);
     /// ```
     pub fn modify(&mut self, char_enum: DefaultArgChar, value: u8) {
