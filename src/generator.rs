@@ -208,11 +208,11 @@ pub fn generator_password_with_config(
 /// println!("{}",pass)
 /// ```
 fn random_string(length: usize, select_chars_array: &[char]) -> String {
-    return select_chars_array
+    select_chars_array
         .iter()
         .choose_multiple(&mut rand::thread_rng(), length)
         .into_iter()
-        .collect::<String>();
+        .collect::<String>()
 }
 
 #[cfg(test)]
